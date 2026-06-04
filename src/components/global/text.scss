@@ -1,0 +1,34 @@
+//# Use //
+@use '../../shared/styles/default/text.scss' as text;
+@use '../../shared/styles/mixins/no-select' as no-select;
+
+.text {
+    display: flex;
+    color: text.$color;
+    font-family: text.$font-family;
+
+    &-no-select {
+        @include no-select.no-select;
+    }
+
+    &-no-wrap {
+        white-space: nowrap;
+    }
+    
+    &-not-exceed {
+        &-x {
+            display: block;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 0;
+            min-width: 100%;
+        }
+
+        &-y {
+            position: relative;
+            max-height: 9.5em;
+            overflow: hidden;
+        }
+    }
+}
