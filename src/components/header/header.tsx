@@ -5,6 +5,7 @@ import Button from '../global/button.tsx'
 //# Config //
 import headerRoutes from '../../config/navigation/headerRoutes.tsx'
 //# Libs //
+import { useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next'
 import { useState, useEffect } from 'react'
 import LockBodyScroll from '../../shared/utils/hooks/useLockBodyScroll.ts'
@@ -57,11 +58,12 @@ function HamburgerMenuClosed({ setOpen }: { setOpen: any }) {
 }
 
 function HamburgerMenuOpened({ setOpen }: { setOpen: any }) {
-    const { t } = useTranslation()
+    const { t, i18n } = useTranslation()
+    const currentLang = i18n.language
 
     function ListItem({ key, navKey, route }: { key: number, navKey: string, route: string }) {
         const [hover, setHover] = useState(false)
-
+        
         return (
             <>
                 <li
@@ -71,7 +73,7 @@ function HamburgerMenuOpened({ setOpen }: { setOpen: any }) {
                     onMouseLeave={() => setHover(false)}
                 >
                     <Link
-                        to={route}
+                        to={`/${currentLang}${route}`}
                         className={`
                             header__hamburger-opened__link
                             ${hover ? 'header__hamburger-opened__link--hover-text' : ''}
@@ -117,6 +119,8 @@ function HamburgerMenuOpened({ setOpen }: { setOpen: any }) {
 
 export default function Header() {
     const { t } = useTranslation()
+    const location = useLocation()
+    const isSearchRoute = location.pathname.includes('/search')
     const hamburgerBreakpoint = parseInt(
         getComputedStyle(document.documentElement)
             .getPropertyValue('--screen-tablet-large')
@@ -147,7 +151,7 @@ export default function Header() {
 
     return (
         <>
-            <header className='header'>
+            <header className={!isSearchRoute ? 'header' : 'header--search'}>
                 {
                     hamburgerBreakpoint < screenSize.width
                         ?
