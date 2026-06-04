@@ -41,7 +41,6 @@ function HamburgerOpenedLogo() {
     )
 }
 function HamburgerMenuClosed({ setOpen }: { setOpen: any }) {
-    const { t } = useTranslation()
     return (
         <nav className='header__nav--hamburger-closed'>
             <HamburgerClosedLogo />
