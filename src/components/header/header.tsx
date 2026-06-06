@@ -9,13 +9,20 @@ import { useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next'
 import { useState, useEffect } from 'react'
 import LockBodyScroll from '../../shared/utils/hooks/useLockBodyScroll.ts'
+import GetDefaultLn from '../../shared/utils/GetDefaultLn.ts'
 //# Classes //
 import './header.scss'
 //# Icons //
 import { IoIosMenu } from "react-icons/io";
 import { IoMdClose } from "react-icons/io";
 
+//.. Local Functions //
+function FormatUrlRoute(route: string) {
+    const defaultLn = GetDefaultLn()
+    return `${defaultLn}/${route}`
+}
 
+//.. Components //
 function DefaultHeaderLogo() {
     return (
         <>
@@ -56,14 +63,12 @@ function HamburgerMenuClosed({ setOpen }: { setOpen: any }) {
         </nav>
     )
 }
-
 function HamburgerMenuOpened({ setOpen }: { setOpen: any }) {
-    const { t, i18n } = useTranslation()
-    const currentLang = i18n.language
+    const { t } = useTranslation()
 
     function ListItem({ key, navKey, route }: { key: number, navKey: string, route: string }) {
         const [hover, setHover] = useState(false)
-        
+
         return (
             <>
                 <li
@@ -73,7 +78,7 @@ function HamburgerMenuOpened({ setOpen }: { setOpen: any }) {
                     onMouseLeave={() => setHover(false)}
                 >
                     <Link
-                        to={`/${currentLang}${route}`}
+                        to={FormatUrlRoute(route)}
                         className={`
                             header__hamburger-opened__link
                             ${hover ? 'header__hamburger-opened__link--hover-text' : ''}
@@ -116,10 +121,10 @@ function HamburgerMenuOpened({ setOpen }: { setOpen: any }) {
         </nav>
     )
 }
-
 export default function Header() {
     const { t } = useTranslation()
     const location = useLocation()
+
     const isSearchRoute = location.pathname.includes('/search')
     const hamburgerBreakpoint = parseInt(
         getComputedStyle(document.documentElement)
@@ -127,12 +132,15 @@ export default function Header() {
             .trim(),
         10
     );
+
     const [open, setOpen] = useState(false)
     const [screenSize, setScreenSize] = useState({
         width: window.innerWidth,
         height: window.innerHeight,
     });
 
+    // Keeps screenSize state in sync with the actual window dimensions.
+    // Runs once on mount to attach a resize listener, and cleans it up on unmount.
     useEffect(() => {
         const handleResize = () => {
             setScreenSize({
@@ -147,6 +155,11 @@ export default function Header() {
             window.removeEventListener('resize', handleResize);
         };
     }, []);
+    // Closes the hamburger menu whenever the route changes.
+    // Only triggers a re-render when the menu was actually open.
+    useEffect(() => {
+        setOpen(false) 
+    }, [location.pathname])
     LockBodyScroll(open)
 
     return (
@@ -162,7 +175,7 @@ export default function Header() {
                                 <ul className='header__link-list'>
                                     {Object.entries(headerRoutes).map(([key, route]) => (
                                         <li key={key} className='header__link-list__item'>
-                                            <Link to={route} className='header__link' no_wrap={true}>
+                                            <Link to={FormatUrlRoute(route)} className='header__link' no_wrap={true}>
                                                 {t(`header.${key}`)}
                                             </Link>
                                         </li>
@@ -171,8 +184,6 @@ export default function Header() {
                             </nav>
                             <hr className='header__hr' />
                         </>
-
-
                         :
                         !open ?
                             <>
@@ -182,8 +193,6 @@ export default function Header() {
 
                             :
                             <HamburgerMenuOpened setOpen={setOpen} />
-
-
                 }
 
             </header>

@@ -1,5 +1,5 @@
 export default {
-    "search": "#",
+    "search": "/search",
     "accessories": "#",
     "services": "#",
     "aboutus": "#",
