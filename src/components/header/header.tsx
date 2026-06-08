@@ -125,7 +125,6 @@ export default function Header() {
     const { t } = useTranslation()
     const location = useLocation()
 
-    const isSearchRoute = location.pathname.includes('/search')
     const hamburgerBreakpoint = parseInt(
         getComputedStyle(document.documentElement)
             .getPropertyValue('--screen-tablet-large')
@@ -164,7 +163,7 @@ export default function Header() {
 
     return (
         <>
-            <header className={!isSearchRoute ? 'header' : 'header--search'}>
+            <header className={'header'}>
                 {
                     hamburgerBreakpoint < screenSize.width
                         ?

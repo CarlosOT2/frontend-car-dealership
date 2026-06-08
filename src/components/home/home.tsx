@@ -40,7 +40,7 @@ export default function Home() {
                     <section className="home__hero">
 
                         <Img src="./img/herobg.jpeg" className="home__bg--hero" noSelect={true} />
-                        <div className="home__left-shadow--hero" aria-hidden={true}></div>
+                        <div className="home__right-shadow--hero" aria-hidden={true}></div>
 
                         <Animation type="right" className="home__hero__content">
                             <Text tag="h1" className="home__hero__title">
@@ -92,7 +92,7 @@ export default function Home() {
                             {vehicles?.map((vehicle: Vehicle) => (
                                 <li key={vehicle.id} className="home__vehicles__list-item">
                                     <Img src={vehicle.src} className="home__bg--vehicles" noSelect={true} />
-                                    <div className="home__left-shadow--vehicles" aria-hidden={true}></div>
+                                    <div className="home__right-shadow--vehicles" aria-hidden={true}></div>
                                     <Animation type="right" className="home__vehicles__list-wrapper">
                                         <Text tag="h3" className="home__vehicles__list-title">
                                             {vehicle.title}
