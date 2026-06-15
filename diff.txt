@@ -1,0 +1,139 @@
+diff --git a/src/components/search/search.scss b/src/components/search/search.scss
+index bd6c0c3..1e7196d 100644
+--- a/src/components/search/search.scss
++++ b/src/components/search/search.scss
+@@ -74,10 +74,27 @@
+ 
+             background-color: var(--color5);
+ 
++            &__content {
++                position: absolute;
++                top: -8%;
++
++                display: flex;
++                flex-direction: column;
++                width: var(--layout-default-width);
++                height: 300px;
++
++                margin-top: 25px;
++                border-radius: border.$border-radius-high;
++                box-shadow: 0 0px 15px var(--box-shadow);
++
++                background-color: var(--color1);
++            }
++
+             &__tabs {
+                 display: flex;
+                 width: 100%;
+-                height: 20%;
++
++                margin: 25px;
+ 
+                 &-list {
+                     list-style: none;
+@@ -88,29 +105,19 @@
+                     height: fit-content;
+ 
+                     gap: 20px;
+-
+-                    padding: 30px;
+-                    margin-top: 5px;
+                 }
+ 
+ 
+                 &-text {}
+             }
+ 
+-            &__content {
+-                position: absolute;
+-                top: -8%;
+-
++            &__form {
+                 display: flex;
+-                width: var(--layout-default-width);
+-                height: 350px;
+ 
+-                margin-top: 25px;
+-                border-radius: border.$border-radius-high;
+-                box-shadow: 0 0px 15px var(--box-shadow);
+-
+-                background-color: var(--color1);
++                margin-left: 25px;
++                margin-left: 25px;
+             }
++
+         }
+     }
+ }
+\ No newline at end of file
+diff --git a/src/components/search/search.tsx b/src/components/search/search.tsx
+index cdc6f99..35bafdb 100644
+--- a/src/components/search/search.tsx
++++ b/src/components/search/search.tsx
+@@ -1,14 +1,24 @@
+ //# Components //
+ import Img from '../global/img'
+ import Text from '../global/text'
++import Input from '../global/inputs/input'
+ //# Libs //
+ import { useTranslation } from 'react-i18next'
++//# Utils //
++import { useFormController } from '../../shared/form/FormController'
+ //# Classes //
+ import './search.scss'
+ 
+ export default function Search() {
++    const { InputsController, SubmitController } = useFormController({
++        handleSubmit: handleSubmit
++    })
+     const { t } = useTranslation()
+ 
++    async function handleSubmit() {
++
++    }
++
+     return (
+         <section className='search'>
+             <div className='search__content'>
+@@ -25,28 +35,35 @@ export default function Search() {
+                         <nav className='search__section-form__tabs'>
+                             <ul className='search__section-form__tabs-list'>
+                                 <li className='search__section-form__tabs-item'>
+-                                    <Text tag='span' className='search__section-form__tabs-text'>
++                                    <Text tag='span' className='search__section-form__tabs-text' no_select={true}>
+                                         Veículos Novos
+                                     </Text>
+                                 </li>
+                                 <li className='search__section-form__tabs-item'>
+-                                    <Text tag='span' className='search__section-form__tabs-text'>
++                                    <Text tag='span' className='search__section-form__tabs-text' no_select={true}>
+                                         Veículos Semi-Novos
+                                     </Text>
+                                 </li>
+                                 <li className='search__section-form__tabs-item'>
+-                                    <Text tag='span' className='search__section-form__tabs-text'>
++                                    <Text tag='span' className='search__section-form__tabs-text' no_select={true}>
+                                         Acessórios
+                                     </Text>
+                                 </li>
+                             </ul>
+                         </nav>
+ 
+-                        <form className='search__section-form__form'>
+-
++                        <form
++                            className='search__section-form__form'
++                            onSubmit={SubmitController.onSubmit}
++                        >
++                            <Input
++                                type='text'
++                                name='teste'
++                                autoComplete='off'
++                                InputsController={InputsController}
++                            />
+                         </form>
+                     </div>
+-
+                 </section>
+             </div >
+         </section >
