@@ -2,6 +2,7 @@
 import Img from '../global/img'
 import Text from '../global/text'
 import Input from '../global/inputs/input'
+import Select from '../global/inputs/select'
 //# Libs //
 import { useTranslation } from 'react-i18next'
 //# Utils //
@@ -59,7 +60,13 @@ export default function Search() {
                             <Input
                                 type='text'
                                 name='teste'
+                                className='search__section-form__input'
                                 autoComplete='off'
+                                InputsController={InputsController}
+                            />
+                            <Select
+                                name='teste2'
+                                className='search__section-form__input--select'
                                 InputsController={InputsController}
                             />
                         </form>

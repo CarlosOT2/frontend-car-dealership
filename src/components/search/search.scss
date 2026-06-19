@@ -111,11 +111,23 @@
                 &-text {}
             }
 
+            &__input {
+                padding: 10px 12px;
+                font-size: text.$font-size5-5;
+                width: 17.5%;
+
+                &--select {
+                    @extend .search__section-form__input;
+                }
+            }
+
             &__form {
                 display: flex;
 
                 margin-left: 25px;
                 margin-left: 25px;
+
+                gap: 15px;
             }
 
         }
