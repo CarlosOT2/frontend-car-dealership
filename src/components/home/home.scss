@@ -42,7 +42,7 @@
         }
     }
 
-    &__left-shadow {
+    &__right-shadow {
         position: absolute;
         left: 0;
         width: 75%;
@@ -52,11 +52,11 @@
         z-index: -1;
 
         &--hero {
-            @extend .home__left-shadow;
+            @extend .home__right-shadow;
         }
 
         &--vehicles {
-            @extend .home__left-shadow;
+            @extend .home__right-shadow;
             height: calc(var(--layout-default-height) / 1.5);
         }
     }
@@ -297,7 +297,7 @@
             }
         }
 
-        &__left-shadow {
+        &__right-shadow {
             &--hero {
                 width: 100%;
                 height: calc(var(--layout-default-height) * 1.25);
@@ -391,7 +391,7 @@
 
         &__bg--vehicles,
         &__vehicles__list-wrapper,
-        &__left-shadow--vehicles,
+        &__right-shadow--vehicles,
         &__vehicles__list-item {
             height: calc(var(--layout-default-height) / 1.15);
         }

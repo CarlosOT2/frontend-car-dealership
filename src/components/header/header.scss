@@ -16,11 +16,6 @@
 
     z-index: 1;
 
-    &--search {
-        @extend .header;
-        background-color: var(--color3);
-    }
-
     &__logo {
         width: 45px;
         height: 45px;

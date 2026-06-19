@@ -10,6 +10,9 @@ import GetDefaultLn from './shared/utils/GetDefaultLn'
 //# Classes //
 import './App.scss'
 
+// https://www.autoscout24.com/
+// template example website
+
 function App() {
   return (
     <>

@@ -25,6 +25,9 @@ home:
   vehicles:
     cards:
       button: "Saiba Mais"
+search:
+  hero:
+    title: "Encontre o veículo dos seus sonhos."
 footer:
   nav:
     cols:

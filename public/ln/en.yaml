@@ -25,6 +25,9 @@ home:
   vehicles:
     cards:
       button: "View Vehicle"
+search:
+  hero:
+    title: "Find the vehicle of your dreams"
 footer:
   nav:
     cols:

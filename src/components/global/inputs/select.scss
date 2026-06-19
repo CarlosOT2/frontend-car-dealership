@@ -1,0 +1,15 @@
+//# Uses //
+@use '../../../Shared/styles/default/input' as input;
+@use '../../../Shared/styles/utils' as utils;
+
+.select {
+    @include input.input-style;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    background-image: url("/img/icons/angle-down-solid-full.svg");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 16px;
+}
