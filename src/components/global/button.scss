@@ -1,3 +1,6 @@
+//# Use //
+@use '../../shared/styles/default/button' as button;
+
 .button {
-    cursor: pointer;
+    @include button.button-style;
 }

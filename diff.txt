@@ -1,139 +1,604 @@
+diff --git a/diff.txt b/diff.txt
+index 71a4ab5..e69de29 100644
+--- a/diff.txt
++++ b/diff.txt
+@@ -1,139 +0,0 @@
+-diff --git a/src/components/search/search.scss b/src/components/search/search.scss
+-index bd6c0c3..1e7196d 100644
+---- a/src/components/search/search.scss
+-+++ b/src/components/search/search.scss
+-@@ -74,10 +74,27 @@
+- 
+-             background-color: var(--color5);
+- 
+-+            &__content {
+-+                position: absolute;
+-+                top: -8%;
+-+
+-+                display: flex;
+-+                flex-direction: column;
+-+                width: var(--layout-default-width);
+-+                height: 300px;
+-+
+-+                margin-top: 25px;
+-+                border-radius: border.$border-radius-high;
+-+                box-shadow: 0 0px 15px var(--box-shadow);
+-+
+-+                background-color: var(--color1);
+-+            }
+-+
+-             &__tabs {
+-                 display: flex;
+-                 width: 100%;
+--                height: 20%;
+-+
+-+                margin: 25px;
+- 
+-                 &-list {
+-                     list-style: none;
+-@@ -88,29 +105,19 @@
+-                     height: fit-content;
+- 
+-                     gap: 20px;
+--
+--                    padding: 30px;
+--                    margin-top: 5px;
+-                 }
+- 
+- 
+-                 &-text {}
+-             }
+- 
+--            &__content {
+--                position: absolute;
+--                top: -8%;
+--
+-+            &__form {
+-                 display: flex;
+--                width: var(--layout-default-width);
+--                height: 350px;
+- 
+--                margin-top: 25px;
+--                border-radius: border.$border-radius-high;
+--                box-shadow: 0 0px 15px var(--box-shadow);
+--
+--                background-color: var(--color1);
+-+                margin-left: 25px;
+-+                margin-left: 25px;
+-             }
+-+
+-         }
+-     }
+- }
+-\ No newline at end of file
+-diff --git a/src/components/search/search.tsx b/src/components/search/search.tsx
+-index cdc6f99..35bafdb 100644
+---- a/src/components/search/search.tsx
+-+++ b/src/components/search/search.tsx
+-@@ -1,14 +1,24 @@
+- //# Components //
+- import Img from '../global/img'
+- import Text from '../global/text'
+-+import Input from '../global/inputs/input'
+- //# Libs //
+- import { useTranslation } from 'react-i18next'
+-+//# Utils //
+-+import { useFormController } from '../../shared/form/FormController'
+- //# Classes //
+- import './search.scss'
+- 
+- export default function Search() {
+-+    const { InputsController, SubmitController } = useFormController({
+-+        handleSubmit: handleSubmit
+-+    })
+-     const { t } = useTranslation()
+- 
+-+    async function handleSubmit() {
+-+
+-+    }
+-+
+-     return (
+-         <section className='search'>
+-             <div className='search__content'>
+-@@ -25,28 +35,35 @@ export default function Search() {
+-                         <nav className='search__section-form__tabs'>
+-                             <ul className='search__section-form__tabs-list'>
+-                                 <li className='search__section-form__tabs-item'>
+--                                    <Text tag='span' className='search__section-form__tabs-text'>
+-+                                    <Text tag='span' className='search__section-form__tabs-text' no_select={true}>
+-                                         Veículos Novos
+-                                     </Text>
+-                                 </li>
+-                                 <li className='search__section-form__tabs-item'>
+--                                    <Text tag='span' className='search__section-form__tabs-text'>
+-+                                    <Text tag='span' className='search__section-form__tabs-text' no_select={true}>
+-                                         Veículos Semi-Novos
+-                                     </Text>
+-                                 </li>
+-                                 <li className='search__section-form__tabs-item'>
+--                                    <Text tag='span' className='search__section-form__tabs-text'>
+-+                                    <Text tag='span' className='search__section-form__tabs-text' no_select={true}>
+-                                         Acessórios
+-                                     </Text>
+-                                 </li>
+-                             </ul>
+-                         </nav>
+- 
+--                        <form className='search__section-form__form'>
+--
+-+                        <form
+-+                            className='search__section-form__form'
+-+                            onSubmit={SubmitController.onSubmit}
+-+                        >
+-+                            <Input
+-+                                type='text'
+-+                                name='teste'
+-+                                autoComplete='off'
+-+                                InputsController={InputsController}
+-+                            />
+-                         </form>
+-                     </div>
+--
+-                 </section>
+-             </div >
+-         </section >
+diff --git a/public/ln/en.yaml b/public/ln/en.yaml
+index b41f74a..38de0fd 100644
+--- a/public/ln/en.yaml
++++ b/public/ln/en.yaml
+@@ -28,6 +28,13 @@ home:
+ search:
+   hero:
+     title: "Find the vehicle of your dreams"
++  form:
++    brand: "Make"
++    model: "Model"
++    variant: "Variant"
++    year: "Year"
++    bodyType: "Body Type"
++    search: "Search"
+ footer:
+   nav:
+     cols:
+diff --git a/public/ln/pt.yaml b/public/ln/pt.yaml
+index ea69f9f..a3c5f4f 100644
+--- a/public/ln/pt.yaml
++++ b/public/ln/pt.yaml
+@@ -28,6 +28,13 @@ home:
+ search:
+   hero:
+     title: "Encontre o veículo dos seus sonhos."
++  form:
++    make: "Marca"
++    model: "Modelo"
++    variant: "Versão"
++    year: "Ano"
++    bodyType: "Categoria"
++    search: "Pesquisar"
+ footer:
+   nav:
+     cols:
+diff --git a/src/components/global/button.scss b/src/components/global/button.scss
+index 8491ab2..b447e7f 100644
+--- a/src/components/global/button.scss
++++ b/src/components/global/button.scss
+@@ -1,3 +1,6 @@
++//# Use //
++@use '../../shared/styles/default/button' as button;
++
+ .button {
+-    cursor: pointer;
++    @include button.button-style;
+ }
+\ No newline at end of file
+diff --git a/src/components/global/button.tsx b/src/components/global/button.tsx
+index f1c06fa..0704919 100644
+--- a/src/components/global/button.tsx
++++ b/src/components/global/button.tsx
+@@ -1,31 +1,49 @@
+-//# Utils //
+-import FilterClasses from '../../shared/utils/FilterClasses';
+ //# Classes //
+ import './button.scss'
+ 
+ interface button {
+     /** type of the button */
+-    type: "button" | "submit" | "reset"
++    type?: "button" | "submit" | "reset",
+     /** additional CSS classes to apply */
+     className?: string
+-    /** children of the link */
++    /** children of the button */
+     children?: React.ReactNode
+-    /** Click event handler for the button */
+-    onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void
++    /** onClick of the button */
++    onClick?: any
++    /** apply default style */
++    defaultStyle?: boolean
++    /** icon that will show next to button */
++    icon?: any
++    /** aria-label of the button */
++    ariaLabel?: string
++    /** aria-labelledby of the button */
++    ariaLabelledBy?: string
+ }
+ 
+-export default function Button({ type, className, children, onClick }: button) {
+-    const frmtd_className: string = FilterClasses(`
+-                    button
+-                    ${className}
+-                    `)
++export default function button({
++    type = "button",
++    className = '',
++    children,
++    onClick,
++    icon,
++    defaultStyle = true,
++    ariaLabel = undefined,
++    ariaLabelledBy = undefined
++}: button) {
++
++    const frmtd_className: string = `${defaultStyle ? 'button' : ''} ${className}`
+     return (
+-        <button
+-            type={type}
+-            className={frmtd_className}
+-            onClick={onClick}
+-        >
+-            {children}
+-        </button>
++        <>
++            <button
++                type={type}
++                onClick={onClick}
++                className={frmtd_className}
++                aria-label={ariaLabel}
++                aria-labelledby={ariaLabelledBy}
++            >
++                {icon}
++                {children}
++            </button>
++        </>
+     )
+ }
+\ No newline at end of file
+diff --git a/src/components/global/inputs/input.scss b/src/components/global/inputs/input.scss
+index c31c09d..1e30225 100644
+--- a/src/components/global/inputs/input.scss
++++ b/src/components/global/inputs/input.scss
+@@ -1,6 +1,6 @@
+ //# Uses //
+-@use '../../../Shared/styles/default/input' as input;
+-@use '../../../Shared/styles/utils' as utils;
++@use '../../../shared/styles/default/input' as input;
++@use '../../../shared/styles/utils' as utils;
+ 
+ 
+ .input {
+diff --git a/src/components/global/inputs/input.tsx b/src/components/global/inputs/input.tsx
+index b27aef2..10b9b9c 100644
+--- a/src/components/global/inputs/input.tsx
++++ b/src/components/global/inputs/input.tsx
+@@ -1,67 +1,100 @@
+-//# Utils //
+-import FilterClasses from '../../../shared/utils/FilterClasses';
+ //# Libs //
+-import { useRef, useEffect } from 'react';
+-//# Types //
+-import type { InputsController } from '../../../shared/types/FormController'
++import { useRef } from 'react';
+ import type { IconType } from 'react-icons';
++//# Types //
++import type { InputsController } from '../../../shared/types/FormController';
+ //# Classes //
+-import './input.scss'
++import './input.scss';
+ 
+-type input = {
++type InputProps = {
+     /** type of the input */
+-    type: string
++    type: string;
+     /** name of the input, used in 'data' from 'FormController' Hook */
+-    name: string
++    name: string;
+     /** additional CSS classes to apply */
+-    className?: string
++    className?: string;
++    /** CSS classes for the input's wrapper `<div>` */
++    divClassName?: string;
+     /** aria-label of the input */
+-    ariaLabel?: string
+-    /** autoComplete of the input */
+-    autoComplete?: "on" | "off"
+-    /** add a icon to input */
+-    Icon?: IconType
+-    /** controller object containing InputsController from 'FormController' Hook */
+-    InputsController: InputsController
+-}
++    ariaLabel?: string;
++    /** style of the input */
++    style?: React.CSSProperties;
++    /** placeholder of the input */
++    placeHolder?: string;
++    /** fires additionally on input change */
++    onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
++    /** onBlur event of the input */
++    onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
++    /** onFocus event of the input */
++    onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void; 
++    /** autocomplete of the input */
++    autoComplete?: 'on' | 'off';
++    /** add an icon to the input */
++    Icon?: IconType;
++    /** add a className to the icon */
++    iconClassName?: string;
++    /** place the input icon on the left instead of the right */
++    reverseIcon?: boolean;
++    /** controller object containing InputsController from FormController Hook */
++    InputsController: InputsController;
++};
+ 
++type DefaultInputProps = Omit<InputProps, 'Icon' | 'iconClassName' | 'reverseIcon'> & { inputRef: React.RefObject<HTMLInputElement | null>}
+ 
+-export default function Input({ type, name, className = '', ariaLabel, autoComplete = "on", Icon, InputsController }: input) {
++function DefaultInput({
++    type,
++    inputRef,
++    name,
++    className = '',
++    ariaLabel,
++    autoComplete = 'on',
++    InputsController,
++    placeHolder,
++    onFocus,
++    style,
++    onBlur,
++    onChange,
++}: DefaultInputProps) {
++    return (
++        <input
++            ref={inputRef}
++            type={type}
++            name={name}
++            value={InputsController.data[name] ?? ''}
++            placeholder={placeHolder}
++            className={`input ${className}`}
++            aria-label={ariaLabel || undefined}
++            onBlur={onBlur}
++            onFocus={onFocus}
++            style={style}
++            autoComplete={autoComplete}
++            onChange={(event) => {
++                InputsController.onChange(event);
++                onChange?.(event);
++            }}
++        />
++    );
++}
+ 
+-    //.. Used to prevent input from losing focus when the user types
+-    const ref = useRef<HTMLInputElement>(null)
+-    useEffect(() => {
+-        ref.current?.focus();
+-    }, [InputsController.data[name]]);
++export default function Input({
++    Icon,
++    reverseIcon,
++    iconClassName,
++    divClassName,
++    ...inputProps
++}: InputProps) {
++    const inputRef = useRef<HTMLInputElement>(null);
+ 
+-    function DefaultInput() {
+-        return (
+-            <input
+-                ref={ref}
+-                type={type}
+-                name={name}
+-                value={InputsController.data[name]}
+-                className={FilterClasses(`
+-                    input
+-                    ${className}
+-                `)}
+-                aria-label={ariaLabel || undefined}
+-                onChange={InputsController.onChange}
+-                autoComplete={autoComplete}
+-            />
+-        )
+-    }
++    const input = <DefaultInput {...inputProps} inputRef={inputRef}/>
++   
++    if (!Icon) return input
++    
++    const icon = <Icon className={`input-icon-container-icon ${iconClassName ?? ''}`}/>
++  
+ 
+     return (
+-        <>
+-            {Icon ?
+-                <div className={`input-icon-container ${className}`}>
+-                    <Icon />
+-                    <DefaultInput />
+-                </div>
+-                :
+-                <DefaultInput />
+-            }
+-        </>
+-    )
++        <div className={`input-icon-container ${divClassName} ${inputProps.className ?? ''}`}>
++            {reverseIcon ? <>{input}{icon}</> : <> {icon}{input}</>}
++        </div>
++    );
+ }
+\ No newline at end of file
+diff --git a/src/components/global/inputs/select.scss b/src/components/global/inputs/select.scss
+index 09d0ac9..b6a6167 100644
+--- a/src/components/global/inputs/select.scss
++++ b/src/components/global/inputs/select.scss
+@@ -1,6 +1,6 @@
+ //# Uses //
+-@use '../../../Shared/styles/default/input' as input;
+-@use '../../../Shared/styles/utils' as utils;
++@use '../../../shared/styles/default/input' as input;
++@use '../../../shared/styles/utils' as utils;
+ 
+ .select {
+     @include input.input-style;
 diff --git a/src/components/search/search.scss b/src/components/search/search.scss
-index bd6c0c3..1e7196d 100644
+index e5b2757..4c84522 100644
 --- a/src/components/search/search.scss
 +++ b/src/components/search/search.scss
-@@ -74,10 +74,27 @@
+@@ -74,6 +74,19 @@
  
              background-color: var(--color5);
  
-+            &__content {
-+                position: absolute;
-+                top: -8%;
-+
++            &__button {
 +                display: flex;
-+                flex-direction: column;
-+                width: var(--layout-default-width);
-+                height: 300px;
++                justify-content: center;
++                align-items: center;
++                padding: 10px 12px;
++                width: 17.5%;
 +
-+                margin-top: 25px;
-+                border-radius: border.$border-radius-high;
-+                box-shadow: 0 0px 15px var(--box-shadow);
-+
-+                background-color: var(--color1);
++                &-text {
++                    color: var(--color1);
++                    font-size: text.$font-size5-5;
++                }
 +            }
 +
-             &__tabs {
-                 display: flex;
-                 width: 100%;
--                height: 20%;
-+
-+                margin: 25px;
- 
-                 &-list {
-                     list-style: none;
-@@ -88,29 +105,19 @@
-                     height: fit-content;
- 
-                     gap: 20px;
--
--                    padding: 30px;
--                    margin-top: 5px;
-                 }
- 
- 
-                 &-text {}
-             }
- 
--            &__content {
--                position: absolute;
--                top: -8%;
--
-+            &__form {
-                 display: flex;
--                width: var(--layout-default-width);
--                height: 350px;
- 
--                margin-top: 25px;
--                border-radius: border.$border-radius-high;
--                box-shadow: 0 0px 15px var(--box-shadow);
--
--                background-color: var(--color1);
-+                margin-left: 25px;
-+                margin-left: 25px;
-             }
-+
-         }
-     }
- }
-\ No newline at end of file
+             &__content {
+                 position: absolute;
+                 top: -8%;
 diff --git a/src/components/search/search.tsx b/src/components/search/search.tsx
-index cdc6f99..35bafdb 100644
+index 131f835..82f59f8 100644
 --- a/src/components/search/search.tsx
 +++ b/src/components/search/search.tsx
-@@ -1,14 +1,24 @@
- //# Components //
- import Img from '../global/img'
+@@ -3,6 +3,7 @@ import Img from '../global/img'
  import Text from '../global/text'
-+import Input from '../global/inputs/input'
+ import Input from '../global/inputs/input'
+ import Select from '../global/inputs/select'
++import Button from '../global/button'
  //# Libs //
  import { useTranslation } from 'react-i18next'
-+//# Utils //
-+import { useFormController } from '../../shared/form/FormController'
- //# Classes //
- import './search.scss'
- 
- export default function Search() {
-+    const { InputsController, SubmitController } = useFormController({
-+        handleSubmit: handleSubmit
-+    })
-     const { t } = useTranslation()
- 
-+    async function handleSubmit() {
-+
-+    }
-+
-     return (
-         <section className='search'>
-             <div className='search__content'>
-@@ -25,28 +35,35 @@ export default function Search() {
-                         <nav className='search__section-form__tabs'>
-                             <ul className='search__section-form__tabs-list'>
-                                 <li className='search__section-form__tabs-item'>
--                                    <Text tag='span' className='search__section-form__tabs-text'>
-+                                    <Text tag='span' className='search__section-form__tabs-text' no_select={true}>
-                                         Veículos Novos
-                                     </Text>
-                                 </li>
-                                 <li className='search__section-form__tabs-item'>
--                                    <Text tag='span' className='search__section-form__tabs-text'>
-+                                    <Text tag='span' className='search__section-form__tabs-text' no_select={true}>
-                                         Veículos Semi-Novos
-                                     </Text>
-                                 </li>
-                                 <li className='search__section-form__tabs-item'>
--                                    <Text tag='span' className='search__section-form__tabs-text'>
-+                                    <Text tag='span' className='search__section-form__tabs-text' no_select={true}>
-                                         Acessórios
-                                     </Text>
-                                 </li>
-                             </ul>
-                         </nav>
- 
--                        <form className='search__section-form__form'>
--
-+                        <form
-+                            className='search__section-form__form'
-+                            onSubmit={SubmitController.onSubmit}
-+                        >
-+                            <Input
-+                                type='text'
-+                                name='teste'
-+                                autoComplete='off'
+ //# Utils //
+@@ -57,18 +58,38 @@ export default function Search() {
+                             className='search__section-form__form'
+                             onSubmit={SubmitController.onSubmit}
+                         >
+-                            <Input
+-                                type='text'
+-                                name='teste'
+-                                className='search__section-form__input'
+-                                autoComplete='off'
++                            <Select
++                                name='make'
++                                className='search__section-form__input--select'
 +                                InputsController={InputsController}
++                                label={t('search.form.make')}
 +                            />
++                            <Select
++                                name='model'
++                                className='search__section-form__input--select'
+                                 InputsController={InputsController}
++                                label={t('search.form.model')}
+                             />
+                             <Select
+-                                name='teste2'
++                                name='variant'
+                                 className='search__section-form__input--select'
+                                 InputsController={InputsController}
++                                label={t('search.form.variant')}
++                            />
++                            <Input
++                                type='number'
++                                name='Year'
++                                className='search__section-form__input'
++                                InputsController={InputsController}
+                             />
++                            <Button
++                                type={'submit'}
++                                className='search__section-form__button'
++                            >
++                                <Text tag='span' className='search__section-form__button-text'>
++                                    {t('search.form.search')}
++                                </Text>
++                            </Button>
                          </form>
                      </div>
--
                  </section>
-             </div >
-         </section >
+diff --git a/src/shared/form/FormController.ts b/src/shared/form/FormController.ts
+index f960968..6c7de7b 100644
+--- a/src/shared/form/FormController.ts
++++ b/src/shared/form/FormController.ts
+@@ -1,10 +1,11 @@
+ //# Types //
+ import type { InputsController, SubmitController } from '../types/FormController'
+ //# Libs //
+-import { useState } from "react";
++import { useEffect, useState } from "react";
+ 
+ type config = {
+-    handleSubmit: (...args: any[]) => Promise<any>;
++    handleSubmit: (...args: any[]) => Promise<any>
++    submitOnChange?: boolean
+ }
+ 
+ /**
+@@ -21,7 +22,7 @@ type config = {
+  * 
+  */
+ export function useFormController(config: config) {
+-    const { handleSubmit } = config
++    const { handleSubmit, submitOnChange } = config
+ 
+     const [data, setData] = useState<{ [key: string]: any }>({})
+ 
+@@ -31,11 +32,11 @@ export function useFormController(config: config) {
+         data: data,
+     }
+ 
++    //.. Updates the form data when an input changes; toggles values in an array for checkboxes, replaces the value for other input types
+     function onChange(event: React.ChangeEvent<HTMLInputElement>) {
+         const { name, value, type } = event.target
+ 
+         if (type == 'checkbox') {
+-            console.log('onChange')
+             setData(prev => {
+                 const current = (prev[name] as any[]) || [];
+ 
+@@ -52,6 +53,7 @@ export function useFormController(config: config) {
+         }
+     }
+ 
++    //.. Manually sets the value of a field by name, without needing an input change event
+     function changeValue(name: string, value: any) {
+         setData(prev => ({ ...prev, [name]: value }))
+     }
+@@ -60,11 +62,23 @@ export function useFormController(config: config) {
+     const SubmitController: SubmitController = {
+         onSubmit: onSubmit,
+     }
++
++    //.. Handles the form submit using the handleSubmit function provided to the hook
+     async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
+         event.preventDefault()
+ 
+         await handleSubmit(InputsController.data)
+     }
+ 
++    //.. Automatically calls handleSubmit ~0.5s after the user stops changing inputs
++    useEffect(() => {
++        if (!submitOnChange) return
++        //.. Debounces the automatic submit by 0.5s so it only fires after the user stops typing
++        const timeout = setTimeout(() => {
++            handleSubmit(data)
++        }, 500)
++        return () => clearTimeout(timeout)
++    }, [data])
++
+     return { InputsController, SubmitController }
+ }
+\ No newline at end of file

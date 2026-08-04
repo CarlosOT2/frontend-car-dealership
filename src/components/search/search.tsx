@@ -3,6 +3,7 @@ import Img from '../global/img'
 import Text from '../global/text'
 import Input from '../global/inputs/input'
 import Select from '../global/inputs/select'
+import Button from '../global/button'
 //# Libs //
 import { useTranslation } from 'react-i18next'
 //# Utils //
@@ -57,18 +58,38 @@ export default function Search() {
                             className='search__section-form__form'
                             onSubmit={SubmitController.onSubmit}
                         >
-                            <Input
-                                type='text'
-                                name='teste'
-                                className='search__section-form__input'
-                                autoComplete='off'
-                                InputsController={InputsController}
-                            />
                             <Select
-                                name='teste2'
+                                name='make'
                                 className='search__section-form__input--select'
                                 InputsController={InputsController}
+                                label={t('search.form.make')}
                             />
+                            <Select
+                                name='model'
+                                className='search__section-form__input--select'
+                                InputsController={InputsController}
+                                label={t('search.form.model')}
+                            />
+                            <Select
+                                name='variant'
+                                className='search__section-form__input--select'
+                                InputsController={InputsController}
+                                label={t('search.form.variant')}
+                            />
+                            <Input
+                                type='number'
+                                name='Year'
+                                className='search__section-form__input'
+                                InputsController={InputsController}
+                            />
+                            <Button
+                                type={'submit'}
+                                className='search__section-form__button'
+                            >
+                                <Text tag='span' className='search__section-form__button-text'>
+                                    {t('search.form.search')}
+                                </Text>
+                            </Button>
                         </form>
                     </div>
                 </section>

@@ -74,6 +74,19 @@
 
             background-color: var(--color5);
 
+            &__button {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 10px 12px;
+                width: 17.5%;
+
+                &-text {
+                    color: var(--color1);
+                    font-size: text.$font-size5-5;
+                }
+            }
+
             &__content {
                 position: absolute;
                 top: -8%;

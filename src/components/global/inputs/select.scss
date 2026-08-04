@@ -1,6 +1,6 @@
 //# Uses //
-@use '../../../Shared/styles/default/input' as input;
-@use '../../../Shared/styles/utils' as utils;
+@use '../../../shared/styles/default/input' as input;
+@use '../../../shared/styles/utils' as utils;
 
 .select {
     @include input.input-style;

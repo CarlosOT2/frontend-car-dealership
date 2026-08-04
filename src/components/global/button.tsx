@@ -1,31 +1,49 @@
-//# Utils //
-import FilterClasses from '../../shared/utils/FilterClasses';
 //# Classes //
 import './button.scss'
 
 interface button {
     /** type of the button */
-    type: "button" | "submit" | "reset"
+    type?: "button" | "submit" | "reset",
     /** additional CSS classes to apply */
     className?: string
-    /** children of the link */
+    /** children of the button */
     children?: React.ReactNode
-    /** Click event handler for the button */
-    onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void
+    /** onClick of the button */
+    onClick?: any
+    /** apply default style */
+    defaultStyle?: boolean
+    /** icon that will show next to button */
+    icon?: any
+    /** aria-label of the button */
+    ariaLabel?: string
+    /** aria-labelledby of the button */
+    ariaLabelledBy?: string
 }
 
-export default function Button({ type, className, children, onClick }: button) {
-    const frmtd_className: string = FilterClasses(`
-                    button
-                    ${className}
-                    `)
+export default function button({
+    type = "button",
+    className = '',
+    children,
+    onClick,
+    icon,
+    defaultStyle = true,
+    ariaLabel = undefined,
+    ariaLabelledBy = undefined
+}: button) {
+
+    const frmtd_className: string = `${defaultStyle ? 'button' : ''} ${className}`
     return (
-        <button
-            type={type}
-            className={frmtd_className}
-            onClick={onClick}
-        >
-            {children}
-        </button>
+        <>
+            <button
+                type={type}
+                onClick={onClick}
+                className={frmtd_className}
+                aria-label={ariaLabel}
+                aria-labelledby={ariaLabelledBy}
+            >
+                {icon}
+                {children}
+            </button>
+        </>
     )
 }

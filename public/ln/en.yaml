@@ -28,6 +28,13 @@ home:
 search:
   hero:
     title: "Find the vehicle of your dreams"
+  form:
+    brand: "Make"
+    model: "Model"
+    variant: "Variant"
+    year: "Year"
+    bodyType: "Body Type"
+    search: "Search"
 footer:
   nav:
     cols:

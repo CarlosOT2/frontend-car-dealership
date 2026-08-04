@@ -28,6 +28,13 @@ home:
 search:
   hero:
     title: "Encontre o veículo dos seus sonhos."
+  form:
+    make: "Marca"
+    model: "Modelo"
+    variant: "Versão"
+    year: "Ano"
+    bodyType: "Categoria"
+    search: "Pesquisar"
 footer:
   nav:
     cols:
